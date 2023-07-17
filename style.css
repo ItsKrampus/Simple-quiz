@@ -1,0 +1,49 @@
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color:lightsteelblue;
+}
+.mainbox{
+    width:400px;
+    height:500px;
+    display: block;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0,0,0.2 black   ;
+}
+
+#quiz{
+    display: block;
+    align-items: center;
+    justify-content: center;
+}
+.submit{
+    width: 100%;
+    height: 30px;
+    border: none;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: purple;
+    color: white;
+}
+
+
+
+.choices{
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+
+}
+h2{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+}

@@ -6,7 +6,7 @@ body{
 }
 .mainbox{
     width:400px;
-    height:500px;
+    height:230px;
     display: block;
     align-items: center;
     justify-content: center;
@@ -23,14 +23,15 @@ body{
 }
 .submit{
     width: 100%;
-    height: 30px;
+    height: 40px;
     border: none;
-    border-radius: 3px;
+    border-radius: 5px;
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: purple;
     color: white;
+    margin-top: 50px;
 }
 
 

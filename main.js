@@ -1,78 +1,84 @@
-const questions = [
+const quizData = [
     {
         question: "What was the most used programming language in 2019?",
-        choices: ["Java", "C", "Python", "JavaScript"],
-        correctAnswer: 3 // Index of "JavaScript" in the choices array
+        a: "Java",
+        b: "C",
+        c: "Python",
+        d: "JavaScript",
+        correct: "d"
     },
     {
-        question: "Who is the President of the US?",
-        choices: ["Donald Trump", "Joe Biden", "Hillary Clinton", "Bernie Sanders"],
-        correctAnswer: 1 // Index of "Joe Biden" in the choices array
+        question: "Who is the President of US?",
+        a: "Donald Trump",
+        b: "Joe Biden",
+        c: "Hillary Clinton",
+        d: "Bernie Sanders",
+        correct: "b"
+        
     },
     {
         question: "What does HTML stand for?",
-        choices: ["Hypertext Markup Language", "Cascading Style Sheet", "Jason Object Notation", "None of the above"],
-        correctAnswer: 0 // Index of "Hypertext Markup Language" in the choices array
+        a: "Hypertext Markup Language",
+        b: "Cascading Style Sheet",
+        c: "Jason Object Notation",
+        d: "none of the above",
+        correct: "a"
     },
     {
         question: "What year was JavaScript launched?",
-        choices: ["1993", "1994", "1995", "1996"],
-        correctAnswer: 2 // Index of "1995" in the choices array
-    }
+        a: "1993",
+        b: "1994",
+        c: "1995",
+        d: "1996",
+        correct: "c"
+    },
 ];
-
-
-const quizContainer = document.getElementById("quiz");
-const submitButton = document.getElementById("submit");
-const resultsContainer = document.getElementById("results");
-
-let currentQuestion = 0;
-let numCorrect = 0;
-
-function displayQuestion() {
-    const question = questions[currentQuestion];
-    const choices = question.choices.map((choice, index) =>
-        `<label>
-            <input type="radio" name="question" value="${index}">
-            ${choice}
-        </label>`
-    ).join("");
-
-    quizContainer.innerHTML = `
-        <h2 class="question">${question.question}</h2>
-        <div class="choices">${choices}</div>
-    `;
+const quiz= document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+const submitBtn = document.getElementById('submit')
+let currentQuiz = 0
+let score = 0
+loadQuiz()
+function loadQuiz() {
+    deselectAnswers()
+    const currentQuizData = quizData[currentQuiz]
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
 }
-
-function checkAnswer() {
-    const selectedOption = document.querySelector('input[name="question"]:checked');
-    if (!selectedOption) {
-        return; // No answer selected
-    }
-
-    const answer = selectedOption.value;
-    if (answer === questions[currentQuestion].correctAnswer) {
-        numCorrect++;
-    }
-
-    currentQuestion++;
-
-    if (currentQuestion === questions.length) {
-        showResults();
-    } else {
-        displayQuestion();
-    }
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
 }
-
-
-function showResults() {
-    quizContainer.style.display = "none";
-    submitButton.style.display = "none";
-
-    resultsContainer.innerHTML = `You got ${numCorrect} out of ${questions.length} questions correct!`;
-    resultsContainer.style.display = "block";
+function getSelected() {
+    let answer
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+    return answer
 }
-
-submitButton.addEventListener("click", checkAnswer);
-
-displayQuestion();
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    if(answer) {
+       if(answer === quizData[currentQuiz].correct) {
+           score++
+       }
+       currentQuiz++
+       if(currentQuiz < quizData.length) {
+           loadQuiz()
+       } else {
+           quiz.innerHTML = `
+           <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+           <button onclick="location.reload()">Reload</button>
+           `
+       }
+    }
+})
